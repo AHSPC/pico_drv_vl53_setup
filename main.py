@@ -15,12 +15,15 @@ led.off()
 # values. After some bried testing, I'd recommend values no lower than 1,000 and no higher than 200,000.
 # 40,000 is a good default.
 frequency = 40_000
-ain1 = PWM(Pin(15, Pin.OUT), freq=frequency)
-ain2 = PWM(Pin(14, Pin.OUT), freq=frequency)
-bin1 = PWM(Pin(13, Pin.OUT), freq=frequency)
-bin2 = PWM(Pin(12, Pin.OUT), freq=frequency)
+ain1 = PWM(Pin(15, Pin.OUT))
+ain2 = PWM(Pin(14, Pin.OUT))
+bin1 = PWM(Pin(13, Pin.OUT))
+bin2 = PWM(Pin(12, Pin.OUT))
 drv = DRV8833(ain1, ain2, bin1, bin2)
-
+ain1.freq(frequency)
+ain2.freq(frequency)
+bin1.freq(frequency)
+bin2.freq(frequency)
 ### Setup VL53L4CD (distance sensor)
 # NOTE: the fields `inter_measurement` and `timing_budget` can be used for fine tuning!
 vl53_i2c = SoftI2C(sda=Pin(0), scl=Pin(1))
