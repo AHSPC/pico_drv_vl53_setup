@@ -45,16 +45,18 @@ distance_sensor = create_distance_sensor()
 throttle_a_val = 1
 throttle_b_val = 1
 distance_sensor.start_ranging()
+
 last_distance = distance_sensor.get_distance()
 while True:
     dist = distance_sensor.get_distance()
     print(f"Distance: {dist} cm")
 
-    if last_distance <= ____:
-        ____
+    if last_distance <= ___:
+        ___
     else:
-        ____
-    last_distance = ____
+        ___
+    last_distance = ___
+    sleep(0.1)
 
     # keep everything from challenge 2
     # if distance_sensor.distance < _____:

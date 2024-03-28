@@ -44,6 +44,7 @@ for _ in range(100):
     dist = distance_sensor.get_distance()
 
     print(f"Distance: {dist} cm")
+    sleep(0.1)
 
 print("Testing Finished - Distance Sensor")
 
