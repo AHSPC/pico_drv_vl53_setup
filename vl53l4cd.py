@@ -199,6 +199,12 @@ class VL53L4CD:
         dist = struct.unpack(">H", dist)[0]
         return dist / 10
 
+    def get_distance(self):
+        """Helper to return distance and immediately call clear_interrupt()."""
+        dist = self.distance
+        self.clear_interrupt()
+        return dist
+
     @property
     def timing_budget(self):
         """Ranging duration in milliseconds. Valid range is 10ms to 200ms."""

@@ -33,25 +33,17 @@ print("Starting motors!")
 motor_ctl.throttle_a(1.0)
 motor_ctl.throttle_b(1.0)
 
-print("Testing Distance Sensor")
-# Main loop. Print's the value of `vl53.distance` every time new data is available (matching the sensor's
-# clock speed) and simply wait in between measurements. Stops after 100 datapoints have been read.
-# Tell the vl53l4cd to start tracking distances
-
 ### Setup VL53L4CD (distance sensor)
 # NOTE: the fields `inter_measurement` and `timing_budget` can be used for fine tuning!
 distance_sensor_i2c = SoftI2C(sda=Pin(0), scl=Pin(1))
 distance_sensor = VL53L4CD(distance_sensor_i2c)
 distance_sensor.start_ranging()
 
+print("Testing Distance Sensor")
 for _ in range(100):
-    # This wait loop can be ommited in order to control main loop timing more precisely (at the cost of
-    # receiving the same distance value for multiple cycles)
-    while not distance_sensor.data_ready:
-        pass
-    distance_sensor.clear_interrupt()
+    dist = distance_sensor.get_distance()
 
-    print("Distance: {} cm".format(distance_sensor.distance))
+    print(f"Distance: {dist} cm")
 
 print("Testing Finished - Distance Sensor")
 

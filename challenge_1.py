@@ -42,9 +42,9 @@ distance_sensor.start_ranging()
 while True:
     print("Distance: {} cm".format(distance_sensor.distance))
     distance_sensor.clear_interrupt()
-    if distance_sensor.distance > 50:
+    if distance_sensor.distance > ____:
         motor_ctl.throttle_a(1)
-    elif distance_sensor.distance < 50:
+    elif distance_sensor.distance < ____:
         motor_ctl.throttle_a(0.5)
-    elif distance_sensor.distance < 10:
+    elif distance_sensor.distance < ____:
         motor_ctl.stop_a()
