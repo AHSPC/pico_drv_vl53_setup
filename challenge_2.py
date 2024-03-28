@@ -43,10 +43,6 @@ throttle_b_val = 1
 
 distance_sensor.start_ranging()
 while True:
-    while not distance_sensor.data_ready:
-        pass
-    distance_sensor.clear_interrupt()
-
     print("Distance: {} cm".format(distance_sensor.distance))
     # if you are too close then reverse the motor
     # - throttle_a_val and throttle_b_val are set from -1 to 1.

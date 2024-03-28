@@ -45,10 +45,6 @@ throttle_b_val = 1
 distance_sensor.start_ranging()
 last_distance = distance_sensor.distance
 while True:
-    while not distance_sensor.data_ready:
-        pass
-    distance_sensor.clear_interrupt()
-
     print("Distance: {} cm".format(distance_sensor.distance))
     
     if last_distance <= ________:
