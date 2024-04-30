@@ -199,11 +199,15 @@ class VL53L4CD:
         dist = struct.unpack(">H", dist)[0]
         return dist / 10
 
-    def get_distance(self):
+    def get_distance(self, log_errors: bool = False):
         """Helper to return distance and immediately call clear_interrupt()."""
-        dist = self.distance
-        self.clear_interrupt()
-        return dist
+        try:
+            dist = self.distance
+            self.clear_interrupt()
+            return dist
+        except OSError as err:
+            if log_errors:
+                print("OSError: ", err)
 
     @property
     def timing_budget(self):
