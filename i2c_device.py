@@ -7,15 +7,14 @@ from machine import I2C
 
 try:
     from typing import Optional, Type
-    from types import TracebackType
+    from types import TracebackType    
 except ImportError:
     pass
-
 
 class I2CDevice:
     """
     Represents a single I2C device, and provides a layer over default MicroPython libs compatible with `adafruit_bus_device.i2c_device`.
-
+    
     :param ~busio.I2C i2c: machine.I2C object for the device
     :param int device_address: The 7 bit device address
     :param bool probe: Probe for the device upon object creation, default is true
@@ -24,27 +23,28 @@ class I2CDevice:
     def __init__(self, i2c: I2C, device_address: int, probe: bool = True) -> None:
         self.i2c = i2c
         self.device_address = device_address
-        if probe:
-            self.__probe_for_device()
+        if probe: self.__probe_for_device()
 
-    def readinto(self, buf, *, start: int = 0, end: Optional[int] = None) -> None:
+    def readinto(
+        self, buf, *, start: int = 0, end: Optional[int] = None
+    ) -> None:
         """
         Read into `buf` from the device. The number of bytes read will be the
         length of `buf`.
-
+        
         :param buffer: buffer to write into
         :param int start: Index to start writing at
         :param int end: Index to write up to but not include; `len(buf)` by default
         """
 
         end = len(buf) if end == None else end
-        x = buf[
-            start:end
-        ]  # not magic, this is to modify buf rather than make a copy and read into copy
+        x = buf[start:end] # not magic, this is to modify buf rather than make a copy and read into copy
         self.i2c.readfrom_into(self.device_address, x)
         buf[start:end] = x
 
-    def write(self, buf, *, start: int = 0, end: Optional[int] = None) -> None:
+    def write(
+        self, buf, *, start: int = 0, end: Optional[int] = None
+    ) -> None:
         """
         Write the bytes from ``buf` to the device, then transmit a stop
         bit.
@@ -55,7 +55,7 @@ class I2CDevice:
         """
         end = len(buf) if end == None else end
         self.i2c.writeto(self.device_address, buf[start:end])
-
+            
     def write_then_readinto(
         self,
         out_buffer,
@@ -64,7 +64,7 @@ class I2CDevice:
         out_start: int = 0,
         out_end: Optional[int] = None,
         in_start: int = 0,
-        in_end: Optional[int] = None,
+        in_end: Optional[int] = None
     ) -> None:
         """
         Write the bytes from ``out_buffer`` to the device, then immediately
@@ -104,7 +104,7 @@ class I2CDevice:
         self,
         exc_type: Optional[Type[type]],
         exc_val: Optional[BaseException],
-        exc_tb: Optional[TracebackType],  # type:ignore
+        exc_tb: Optional[TracebackType], #type:ignore
     ) -> bool:
         return False
 
