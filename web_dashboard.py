@@ -18,7 +18,7 @@ import socket
 
 SERVER_ADDRESS = ("192.168.4.33", 3101)
 id = ""
-sock = None
+sock: socket.socket = None
 
 def connect_web_server():
     global sock
